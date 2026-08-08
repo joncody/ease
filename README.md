@@ -1,28 +1,22 @@
 # `ease.js` – Classic Easing Functions for Smooth Animations
 
-A **zero-dependency**, pure JavaScript collection of **Robert Penner’s easing equations**, ported faithfully for use in custom animations, scroll effects, canvas, or any time-based interpolation.
+A **zero-dependency**, pure JavaScript collection of **Robert Penner’s easing equations**, ported faithfully for use in custom animations, scroll effects, canvas, or time-based interpolation.
 
-> 📦 **< 1.5KB** minified  
-> 🧪 **No side effects** — just pure math  
-> 🌲 **Tree-shakable** — import only what you need  
-> ✨ **Drop-in replacement** for any animation loop
+> 📦 **Zero runtime dependencies** • 🧪 **No side effects** • 🌲 **Tree-shakable** • ✨ **Pure functions**
 
 ---
 
 ## 📦 Installation
 
-Copy `ease.js` into your project and import the entire set or individual functions:
+Place `src/ease.js` in your project and import the default object or individual named functions:
 
 ```js
-// Import all
+// Import default collection object
 import ease from './ease.js';
 
-// Or import just what you need (tree-shaking friendly)
+// Or import named easing functions (tree-shaking friendly)
 import { easeOutExpo, easeInOutQuad } from './ease.js';
 ```
-
-> ✅ Works in browsers, bundlers (Vite, Rollup, etc.), and modern runtimes  
-> ❌ ES modules only (no CommonJS)
 
 ---
 
@@ -31,15 +25,15 @@ import { easeOutExpo, easeInOutQuad } from './ease.js';
 All functions follow the **standard Penner signature**:
 
 ```js
-easingFunction(time, startValue, changeInValue, duration)
+easingFunction(time, begin, change, duration)
 ```
 
-| Parameter | Meaning |
-|---------|--------|
-| `t` (time) | Current time (e.g., `elapsedMs`) |
-| `b` (begin) | Starting value (e.g., `0`) |
-| `c` (change) | Total change in value (e.g., `100 - 0 = 100`) |
-| `d` (duration) | Total animation duration (e.g., `500` ms) |
+| Parameter | Type | Meaning |
+|-----------|------|---------|
+| `time` | `number` | Elapsed time (e.g., `elapsedMs`) |
+| `begin` | `number` | Starting value (e.g., `0`) |
+| `change` | `number` | Total change in value (e.g., `100 - 0 = 100`) |
+| `duration` | `number` | Total animation duration (e.g., `500` ms) |
 
 ### Example: Animate a progress bar
 ```js
@@ -51,16 +45,18 @@ const from = 0;
 const to = 300;
 
 function animate(timestamp) {
-  if (!start) start = timestamp;
-  const elapsed = timestamp - start;
-  const progress = Math.min(elapsed, duration);
+    if (start === null) {
+        start = timestamp;
+    }
+    const elapsed = timestamp - start;
+    const progress = Math.min(elapsed, duration);
 
-  const value = easeOutQuad(progress, from, to - from, duration);
-  progressBar.style.width = value + 'px';
+    const value = easeOutQuad(progress, from, to - from, duration);
+    progressBar.style.width = String(value) + "px";
 
-  if (elapsed < duration) {
-    requestAnimationFrame(animate);
-  }
+    if (elapsed < duration) {
+        requestAnimationFrame(animate);
+    }
 }
 
 requestAnimationFrame(animate);
@@ -70,56 +66,24 @@ requestAnimationFrame(animate);
 
 ## 📚 Available Easing Functions
 
-All standard Penner equations are included:
+All standard Penner equations are included and exported in **alphabetical order**:
 
-### Linear
+- `easeInCirc`, `easeInCubic`, `easeInExpo`, `easeInQuad`, `easeInQuart`, `easeInQuint`, `easeInSine`
+- `easeInOutCirc`, `easeInOutCubic`, `easeInOutExpo`, `easeInOutQuad`, `easeInOutQuart`, `easeInOutQuint`, `easeInOutSine`
+- `easeOutCirc`, `easeOutCubic`, `easeOutExpo`, `easeOutQuad`, `easeOutQuart`, `easeOutQuint`, `easeOutSine`
 - `linearTween`
-
-### Quadratic
-- `easeInQuad`
-- `easeOutQuad`
-- `easeInOutQuad`
-
-### Cubic
-- `easeInCubic`
-- `easeOutCubic`
-- `easeInOutCubic`
-
-### Quartic
-- `easeInQuart`
-- `easeOutQuart`
-- `easeInOutQuart`
-
-### Quintic
-- `easeInQuint`
-- `easeOutQuint`
-- `easeInOutQuint`
-
-### Sinusoidal
-- `easeInSine`
-- `easeOutSine`
-- `easeInOutSine`
-
-### Exponential
-- `easeInExpo`
-- `easeOutExpo`
-- `easeInOutExpo`
-
-### Circular
-- `easeInCirc`
-- `easeOutCirc`
-- `easeInOutCirc`
-
-> 💡 **Tip**: For most UI animations, `easeOutQuad` or `easeOutCubic` feel the most natural.
 
 ---
 
-## 🧭 Why This Exists
+## 🧪 Testing
 
-- **No framework lock-in**: Use with `requestAnimationFrame`, GSAP, Canvas, or your own ticker
-- **Tiny & fast**: No classes, no state — just math
-- **Faithful implementation**: Matches original Penner equations used in Flash, jQuery UI, and beyond
-- **Predictable**: Always returns a number — no surprises
+This library includes a zero-dependency, comprehensive browser-based verification suite (50+ assertions covering boundary points, interpolation curves, and type guards).
+
+To run the test suite:
+
+1. Serve the repository using any static web server (e.g., Nginx, Caddy, or Python's `http.server`).
+2. Open `tests/index.html` in your browser (e.g., `http://localhost/tests/index.html`).
+3. View results visually on the page or open Developer Tools (`F12` -> **Console**) to inspect grouped log outputs and execution metrics.
 
 ---
 
