@@ -1,5 +1,12 @@
 # `ease.js` – Classic Easing Functions for Smooth Animations
 
+[![JavaScript](https://img.shields.io/badge/JavaScript-ES6+-F7DF1E?style=flat&logo=javascript&logoColor=black)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
+[![Module: ESM](https://img.shields.io/badge/Module-ESM-blue.svg)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules)
+[![Dependencies: Zero](https://img.shields.io/badge/Dependencies-0-brightgreen.svg)]()
+[![Tree Shakable](https://img.shields.io/badge/Tree--Shakable-Yes-success.svg)]()
+[![Tests: 50+ Passing](https://img.shields.io/badge/Tests-50%2B%20Passing-success.svg)](./tests/index.html)
+[![License](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
+
 A **zero-dependency**, pure JavaScript collection of **Robert Penner’s easing equations**, ported faithfully for use in custom animations, scroll effects, canvas, or time-based interpolation.
 
 > 📦 **Zero runtime dependencies** • 🧪 **No side effects** • 🌲 **Tree-shakable** • ✨ **Pure functions**
